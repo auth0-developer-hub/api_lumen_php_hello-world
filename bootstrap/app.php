@@ -1,5 +1,8 @@
 <?php
 
+use App\Exceptions\ApiException;
+use Illuminate\Support\Facades\Validator;
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
@@ -23,7 +26,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 // $app->withEloquent();
 
@@ -37,6 +40,10 @@ $app = new Laravel\Lumen\Application(
 | your own bindings here if you like or you can make another file.
 |
 */
+$app->singleton(
+    Illuminate\Contracts\Console\Kernel::class,
+    App\Console\Kernel::class
+);
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
@@ -54,7 +61,17 @@ $app->singleton(
 |
 */
 
-$app->configure('app');
+$app->configure('secure-headers');
+$app->configure('cors');
+
+try {
+    Validator::validate($_ENV, [
+        'PORT' => 'required',
+        'CLIENT_ORIGIN_URL' => 'required'
+    ]);
+} catch (\Exception $ex) {
+    throw new ApiException('The required environment variables are missing or invalid. Check .env file.');
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -67,13 +84,10 @@ $app->configure('app');
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
-
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->middleware([
+    App\Http\Middleware\SecureHeaders::class,
+    Fruitcake\Cors\HandleCors::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -86,9 +100,8 @@ $app->configure('app');
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
+$app->register(Fruitcake\Cors\CorsServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -102,7 +115,8 @@ $app->configure('app');
 */
 
 $app->router->group([
-    'namespace' => 'App\Controllers\Api',
+    'namespace' => 'App\Http\Controllers\Api',
+    'prefix' => 'api'
 ], function ($router) {
     require __DIR__.'/../routes/api.php';
 });

@@ -13,6 +13,8 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group(['prefix' => 'messages'], function ($router) {
+    $router->get('public', 'MessagesController@showPublicMessage');
+    $router->get('protected', 'MessagesController@showProtectedMessage');
+    $router->get('admin', 'MessagesController@showAdminMessage');
 });
