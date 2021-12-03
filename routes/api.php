@@ -15,6 +15,6 @@
 
 $router->group(['prefix' => 'messages'], function ($router) {
     $router->get('public', 'MessagesController@showPublicMessage');
-    $router->get('protected', 'MessagesController@showProtectedMessage');
-    $router->get('admin', 'MessagesController@showAdminMessage');
+    $router->get('protected', ['middleware' => 'auth', 'uses' => 'MessagesController@showProtectedMessage']);
+    $router->get('admin', ['middleware' => 'auth', 'uses' => 'MessagesController@showAdminMessage']);
 });
