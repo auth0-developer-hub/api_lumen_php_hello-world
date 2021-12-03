@@ -1,6 +1,6 @@
 # Hello World API: Lumen + PHP Sample
 
-You can use this sample project to learn how to secure a simple Lumen API server using Auth0.
+You can use this sample project to learn how to secure a simple API server using [Auth0](https://auth0.com/) and [Lumen](https://lumen.laravel.com/) framework.
 
 The `starter` branch offers a working API server that exposes three public endpoints. Each endpoint returns a different type of message: public, protected, and admin.
 
@@ -10,23 +10,51 @@ The goal is to use Auth0 to only allow requests that contain a valid access toke
 
 [Check out the `add-rbac` branch]() to see authorization and Role-Based Access Control (RBAC) in action using Auth0.
 
+This project has the following dependencies, most of them are inherited from [Lumen's](https://lumen.laravel.com/docs/8.x):
+
+- PHP >= 7.3 (Minimum version supported by Lumen)
+- [DOM PHP Extension](https://www.php.net/manual/en/book.dom.php) (Required by Lumen's dependencies)
+- [OpenSSL PHP Extension](https://www.php.net/manual/en/book.openssl.php) (Required by Lumen)
+- [PDO PHP Extension](https://www.php.net/manual/en/book.pdo.php) (Required by Lumen)
+- [Mbstring PHP Extension](https://www.php.net/manual/en/book.mbstring.php) (Required by Lumen)
+- [Composer](Composer) (To install dependencies)
+- [fruitcake/laravel-cors](https://github.com/fruitcake/laravel-cors) (Library that provides CORS features)
+
+
+This project was created using PHP v7.3.32, Lumen v8.3.1, and Composer v2.1.14.
+
 ## Get Started
 
-_TODO: Provide the reader detailed information on how to set up the project such as installing project dependencies and anything required for the reader to run the project successfully. For example, in a Node.js project one may state the following:_
 
-Install the project dependencies:
+To get the project up and running, you'll need to:
+
+1. Create a `.env` file with two required variables — `PORT` and `CLIENT_ORIGIN_URL`:
+
+```bash
+echo $'PORT=6060\nCLIENT_ORIGIN_URL=http://localhost:4040' > .env
+```
+
+We also provide an example on the `.env.example` file. If you want to use it instead, just make a copy of it:
+
+```bash
+cp .env.example .env
+```
+
+Feel free to change the default values to meet your needs.
+
+2. Install the project dependencies:
 
 ```bash
 composer install
 ```
 
-Run the project:
+3. Run the project:
 
 ```bash
-rhp -S localhost:8000 -t public
+php -S localhost:6060 -t public
 ```
 
-Be precise and concise with this instructions. Link out to any relevant documentation if you need to provide more details on setting up.
+Those commands should be executed from the project's root folder.
 
 ## API Endpoints
 
@@ -46,7 +74,7 @@ Status: 200 OK
 
 ```json
 {
-  "message": "The API doesn't require an access token to share this message."
+  "text": "The API doesn't require an access token to share this message."
 }
 ```
 
@@ -66,7 +94,7 @@ Status: 200 OK
 
 ```json
 {
-  "message": "The API successfully validated your access token."
+  "text": "The API successfully validated your access token."
 }
 ```
 
@@ -86,7 +114,7 @@ Status: 200 OK
 
 ```json
 {
-  "message": "The API successfully recognized you as an admin."
+  "text": "The API successfully recognized you as an admin."
 }
 ```
 
@@ -119,4 +147,3 @@ Status: 500 Internal Server Error
   "message": "Message that describes the error that took place."
 }
 ```
-zsh:1: permissão negada: /home/waldson/Downloads/starter-readme.md
