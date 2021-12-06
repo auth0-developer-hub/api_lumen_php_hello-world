@@ -27,7 +27,7 @@ touch .env
 Populate `.env` as follows:
 
 ```bash
-API_SERVER_PORT=6060
+PORT=6060
 CLIENT_ORIGIN_URL=http://localhost:4040
 AUTH0_AUDIENCE=
 AUTH0_DOMAIN=
