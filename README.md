@@ -12,7 +12,7 @@ The goal is to use Auth0 to only allow requests that contain a valid access toke
 
 This project has the following dependencies, most of them are inherited from [Lumen's](https://lumen.laravel.com/docs/8.x):
 
-- PHP >= 7.3 (Minimum version supported by Lumen)
+- PHP 7.4+
 - [DOM PHP Extension](https://www.php.net/manual/en/book.dom.php) (Required by Lumen's dependencies)
 - [OpenSSL PHP Extension](https://www.php.net/manual/en/book.openssl.php) (Required by Lumen)
 - [PDO PHP Extension](https://www.php.net/manual/en/book.pdo.php) (Required by Lumen)
@@ -20,8 +20,6 @@ This project has the following dependencies, most of them are inherited from [Lu
 - [Composer](Composer) (To install dependencies)
 - [fruitcake/laravel-cors](https://github.com/fruitcake/laravel-cors) (Library that provides CORS features)
 
-
-This project was created using PHP v7.3.32, Lumen v8.3.1, and Composer v2.1.14.
 
 ## Get Started
 
@@ -147,3 +145,12 @@ Status: 500 Internal Server Error
   "message": "Message that describes the error that took place."
 }
 ```
+
+## Code Sample Specs
+This code sample uses the following main tooling versions:
+
+- Lumen v8.3.1
+- PHP v7.4.25
+- Auth0 PHP SDK v8.0.3
+
+The Lumen project dependency installations were tested with Composer v2.1.14.
