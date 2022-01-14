@@ -2,22 +2,23 @@
 namespace App\Http\Controllers\Api;
 
 use App\Services\MessageServiceInterface;
+use Illuminate\Http\JsonResponse;
 use Laravel\Lumen\Routing\Controller;
 
 class MessagesController extends Controller
 {
-    public function showPublicMessage(MessageServiceInterface $messageService)
+    public function showPublicMessage(MessageServiceInterface $messageService): JsonResponse
     {
-        return $messageService->getPublicMessage()->toArray();
+        return new JsonResponse($messageService->getPublicMessage()->toArray());
     }
 
-    public function showAdminMessage(MessageServiceInterface $messageService)
+    public function showAdminMessage(MessageServiceInterface $messageService): JsonResponse
     {
-        return $messageService->getAdminMessage()->toArray();
+        return new JsonResponse($messageService->getAdminMessage()->toArray());
     }
 
-    public function showProtectedMessage(MessageServiceInterface $messageService)
+    public function showProtectedMessage(MessageServiceInterface $messageService): JsonResponse
     {
-        return $messageService->getProtectedMessage()->toArray();
+        return new JsonResponse($messageService->getProtectedMessage()->toArray());
     }
 }

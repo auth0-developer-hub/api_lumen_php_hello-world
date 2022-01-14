@@ -1,0 +1,10 @@
+---
+version: "3.8"
+services:
+  api:
+    build: .
+    image: api_lumen_php_hello-world:basic-rbac
+    env_file:
+      - .env
+    ports:
+      - 6060:6060
