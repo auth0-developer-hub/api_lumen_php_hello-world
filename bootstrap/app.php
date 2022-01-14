@@ -89,6 +89,10 @@ $app->middleware([
     Fruitcake\Cors\HandleCors::class,
 ]);
 
+$app->routeMiddleware([
+    'insert-metadata' => App\Http\Middleware\InsertMetadata::class
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
