@@ -13,7 +13,7 @@
 |
 */
 
-$router->group(['prefix' => 'messages'], function ($router) {
+$router->group(['prefix' => 'messages', 'middleware' => ['insert-metadata']], function ($router) {
     $router->get('public', 'MessagesController@showPublicMessage');
     $router->get('protected', 'MessagesController@showProtectedMessage');
     $router->get('admin', 'MessagesController@showAdminMessage');
