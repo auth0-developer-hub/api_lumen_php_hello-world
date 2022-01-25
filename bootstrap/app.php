@@ -94,7 +94,8 @@ $app->middleware([
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
-    'can' => App\Http\Middleware\Authorize::class
+    'can' => App\Http\Middleware\Authorize::class,
+    'insert-metadata' => App\Http\Middleware\InsertMetadata::class
 ]);
 
 /*
