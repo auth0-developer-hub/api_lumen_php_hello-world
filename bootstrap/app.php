@@ -68,11 +68,15 @@ $app->singleton(
 
 $app->configure('secure-headers');
 $app->configure('cors');
+$app->configure('cache');
+$app->configure('auth0');
 
 try {
     Validator::validate($_ENV, [
         'PORT' => 'required',
-        'CLIENT_ORIGIN_URL' => 'required'
+        'CLIENT_ORIGIN_URL' => 'required',
+        'AUTH0_AUDIENCE' => 'required',
+        'AUTH0_DOMAIN' => 'required'
     ]);
 } catch (\Exception $ex) {
     throw new ApiException('The required environment variables are missing or invalid. Check .env file.');
@@ -94,6 +98,10 @@ $app->middleware([
     Fruitcake\Cors\HandleCors::class,
 ]);
 
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
@@ -106,6 +114,7 @@ $app->middleware([
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Fruitcake\Cors\CorsServiceProvider::class);
 
 /*

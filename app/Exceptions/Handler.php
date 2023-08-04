@@ -55,7 +55,15 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof ApiException) {
-            return response()->json(['message' => $exception->getMessage()], $exception->getCode());
+            $body = [];
+
+            if ($exception->hasDetails()) {
+                $body = $exception->getDetails();
+            } else {
+                $body = ['message' => $exception->getMessage()];
+            }
+
+            return response()->json($body, $exception->getCode());
         }
 
         return response()->json(['message' => 'Internal Server Error'], 500);
